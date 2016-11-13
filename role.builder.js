@@ -27,6 +27,13 @@ var roleBuilder = {
                 if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0]);
                 }
+            } else {
+                var targets = utilStructure.findDropOffPoints(creep);
+                if (targets.length > 0) {
+                    if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(targets[0]);
+                    }
+                }
             }
         }
         if (creep.memory.gettingEnergy) {
