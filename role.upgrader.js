@@ -1,47 +1,45 @@
+var utilStructure = require('util.structure');
+
 var roleUpgrader = {
+    run: function (creep) {
+        // default behaviour
+        if (!creep.memory.gettingEnergy && !creep.memory.upgrading) {
+            creep.memory.gettingEnergy = true;
 
-    /** @param {Creep} creep **/
-    run: function(creep) {
-	    
-	    if (creep.carry.energy == creep.carryCapacity) {
-            creep.memory.full = true;
-	    } else {
-	        creep.memory.full = false;
-	    }
+            creep.say('U < E');
+        }
+        if (!creep.memory.gettingEnergy && creep.carry.energy == 0) {
+            creep.memory.gettingEnergy = true;
+            creep.memory.upgrading = false;
 
-	    if (creep.carry.energy > 0) {
+            creep.say('U < E');
+        }
+        if (creep.memory.gettingEnergy && creep.carry.energy == creep.carryCapacity) {
+            creep.memory.gettingEnergy = false;
+            creep.memory.upgrading = true;
+
+            creep.say('Upgrading');
+        }
+
+        if (creep.memory.upgrading) {
             if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(creep.room.controller);
             }
-        } else {
-            // scan containers
-            var containers = creep.room.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_CONTAINER) && structure.store.energy > 0;
-                }
-            });
-            
-            if (containers.length > 0) {
-                creep.memory.containerAvailable = true;
-            } else {
-                creep.memory.containerAvailable = false;
-            }
-            
-            if (creep.memory.containerAvailable) {
+        }
+        if (creep.memory.gettingEnergy) {
+            var containers = utilStructure.findStructuresWithEnergy(creep);
+            if (containers.length > 3) {
                 if (creep.withdraw(containers[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(containers[0]);
-                }    
-            }
-        
-            // when empty go harvest
-            if (!creep.memory.containerAvailable) {
-                var sources = creep.room.find(FIND_SOURCES);
-                if(creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
+                }
+            } else {
+                var sources = utilStructure.findEnergySources(creep);
+                if (creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(sources[1]);
-                }   
+                }
             }
         }
-	}
+    }
 };
 
 module.exports = roleUpgrader;

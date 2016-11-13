@@ -1,7 +1,15 @@
 var roleAttacker = {
     run: function(creep) {
-	    //creep.say('defending');
-        creep.moveTo(creep.room.controller);
+        // default behaviour
+        if (!creep.memory.defending) {
+            creep.memory.defending = true;
+
+            creep.say('Defending');
+        }
+
+        if (creep.memory.defending) {
+            creep.moveTo(creep.room.controller);
+        }
 	}
 };
 
