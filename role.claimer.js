@@ -2,9 +2,9 @@ var roleClaimer = {
     run: function(creep) {
         var claimFlag = Game.flags.ClaimFlag;
 
-        if (creep.pos.roomName === claimFlag.pos.roomName) {
+        if (claimFlag !== undefined && creep.pos.roomName === claimFlag.pos.roomName) {
             this.claim(creep);
-        } else {
+        } else if (claimFlag !== undefined) {
             creep.moveTo(claimFlag);
         }
     },
