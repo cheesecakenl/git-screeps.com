@@ -2,12 +2,14 @@ var roleClaimer = {
     run: function(creep) {
         var claimFlag = Game.flags.ClaimFlag;
 
-        if (claimFlag !== undefined){
-            if (!creep.moveTo(claimFlag) == OK) {
-                creep.say('Moving');
-            }
+        if (creep.pos.roomName === claimFlag.pos.roomName) {
+            this.claim(creep);
+        } else {
+            creep.moveTo(claimFlag);
         }
+    },
 
+    claim: function(creep) {
         // Can attacj with 5x CLAIM
         if (creep.getActiveBodyparts(CLAIM) > 4) {
             if (creep.attackController(creep.room.controller) == ERR_NOT_IN_RANGE) {

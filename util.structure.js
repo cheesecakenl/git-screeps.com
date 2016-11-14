@@ -34,6 +34,20 @@ var utilStructure = {
         return {}
     },
 
+    findNonFullContainers: function (creep) {
+        var containers = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure) => {
+                return (structure.structureType == STRUCTURE_CONTAINER) && structure.store.energy < structure.storeCapacity;
+            }
+        });
+
+        if (containers != undefined && containers.length > 0) {
+            return containers;
+        }
+
+        return {}
+    },
+
     findDamagedStructures: function (creep) {
         var damaged = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
