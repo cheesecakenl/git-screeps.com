@@ -2,15 +2,36 @@ var utilEnergy = require('util.energy');
 
 var utilSpawner = {
     spawn: function() {
-        var totalEnergy = utilEnergy.totalEnergyInSpawnAndExtensions();
+        var totalEnergyInSpawnAndExtensions = utilEnergy.totalEnergyInSpawnAndExtensions();
 
-        this.harvesters(totalEnergy);
-        this.movers(totalEnergy);
-        this.builders(totalEnergy);
-        this.fixers(totalEnergy);
-        this.attackers(totalEnergy);
-        this.upgraders(totalEnergy);
-        this.claimers(totalEnergy);
+        this.harvesters(totalEnergyInSpawnAndExtensions);
+        this.movers(totalEnergyInSpawnAndExtensions);
+        this.builders(totalEnergyInSpawnAndExtensions);
+        this.fixers(totalEnergyInSpawnAndExtensions);
+        this.attackers(totalEnergyInSpawnAndExtensions);
+        this.upgraders(totalEnergyInSpawnAndExtensions);
+        this.claimers(totalEnergyInSpawnAndExtensions);
+
+        var totalEnergyInContainers = utilEnergy.totalEnergyInContainers();
+
+        if (totalEnergyInContainers > 1000) {
+            this.spawnUpgrader();
+        }
+    },
+
+    spawnMover: function() {
+        var newName = Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE, MOVE], undefined, {role: 'mover'});
+        console.log('Created mover named ' + newName);
+    },
+
+    spawnUpgrader: function() {
+        var newName = Game.spawns['Spawn1'].createCreep([WORK, WORK, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
+        console.log('Created upgrader named ' + newName);
+    },
+
+    spawnClaimer: function() {
+        var newName = Game.spawns['Spawn1'].createCreep([CLAIM, MOVE], undefined, {role: 'claimer'});
+        console.log('Created claimer named ' + newName);
     },
 
     harvesters: function (totalEnergy) {
@@ -18,8 +39,7 @@ var utilSpawner = {
         if (harvesters.length < 5 && totalEnergy >= 400) {
             totalEnergy -= 400;
 
-            var newName = Game.spawns['Spawn1'].createCreep([WORK, WORK, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'harvester'});
-            console.log('Created harvester named ' + newName);
+            this.spawnMover();
         }
     },
 
@@ -68,8 +88,7 @@ var utilSpawner = {
         if(upgraders.length < 5 && totalEnergy >= 400) {
             totalEnergy -= 400;
 
-            var newName = Game.spawns['Spawn1'].createCreep([WORK, WORK, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'upgrader'});
-            console.log('Created upgrader named ' + newName);
+            this.spawnUpgrader();
         }
     },
 
@@ -78,8 +97,7 @@ var utilSpawner = {
         if (claimers.length < 4 && totalEnergy >= 650) {
             totalEnergy -= 650;
 
-            var newName = Game.spawns['Spawn1'].createCreep([CLAIM, MOVE], undefined, {role: 'claimer'});
-            console.log('Created claimer named ' + newName);
+            this.spawnClaimer();
         }
     }
 };
