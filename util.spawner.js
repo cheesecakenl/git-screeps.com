@@ -15,7 +15,7 @@ var utilSpawner = {
 
     harvesters: function (totalEnergy) {
         var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-        if (harvesters.length < 10 && totalEnergy >= 400) {
+        if (harvesters.length < 5 && totalEnergy >= 400) {
             totalEnergy -= 400;
 
             var newName = Game.spawns['Spawn1'].createCreep([WORK, WORK, CARRY, MOVE, MOVE, MOVE], undefined, {role: 'harvester'});
@@ -75,7 +75,7 @@ var utilSpawner = {
 
     claimers: function(totalEnergy) {
         var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
-        if (claimers.length < 2 && totalEnergy >= 650) {
+        if (claimers.length < 4 && totalEnergy >= 650) {
             totalEnergy -= 650;
 
             var newName = Game.spawns['Spawn1'].createCreep([CLAIM, MOVE], undefined, {role: 'claimer'});
