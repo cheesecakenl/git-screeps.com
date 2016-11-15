@@ -15,11 +15,11 @@ var utilSpawner = {
 
         var minHarvesters = 5;
         var minMovers = 2;
-        var minBuilders = 1;
+        var minBuilders = 4;
         var minFixers = 1;
         var minAttackers = 0;
-        var minUpgraders = 5;
-        var minClaimers = 2;
+        var minUpgraders = 3;
+        var minClaimers = 0;
 
         if (harvesters.length < minHarvesters && totalEnergy >= 400) {
             totalEnergy -= 400;
