@@ -23,7 +23,7 @@ var utilStructure = {
 
         var containers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
-                return (structure.structureType == STRUCTURE_CONTAINER || STRUCTURE_STORAGE) && structure.store.energy < structure.storeCapacity;
+                return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_STORAGE) && structure.store.energy < structure.storeCapacity;
             }
         });
 
@@ -37,7 +37,7 @@ var utilStructure = {
     findNonFullContainers: function (creep) {
         var containers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
-                return (structure.structureType == STRUCTURE_CONTAINER || STRUCTURE_STORAGE) && structure.store.energy < structure.storeCapacity;
+                return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_STORAGE) && structure.store.energy < structure.storeCapacity;
             }
         });
 
@@ -79,7 +79,7 @@ var utilStructure = {
 
         var containers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
-                return (structure.structureType == STRUCTURE_CONTAINER || STRUCTURE_STORAGE) && structure.store.energy > 0;
+                return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_STORAGE) && structure.store.energy > 0;
             }
         });
 
@@ -102,7 +102,7 @@ var utilStructure = {
     findContainersWithEnergy: function (creep) {
         var containers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
-                return (structure.structureType == STRUCTURE_CONTAINER || STRUCTURE_STORAGE) && structure.store.energy > 0;
+                return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_STORAGE) && structure.store.energy > 0;
             }
         });
 

@@ -14,6 +14,19 @@ var utilEnergy = {
         return totalEnergy;
     },
 
+    totalEnergyCapacityInSpawnAndExtensions: function () {
+        var totalEnergy = 0;
+
+        for (var name in Game.rooms) {
+            var myRoom = Game.rooms[name];
+            var energyCount = myRoom.energyCapacityAvailable;
+
+            totalEnergy += energyCount;
+        }
+
+        return totalEnergy;
+    },
+
     totalEnergyInContainers: function() {
         var total = 0;
 

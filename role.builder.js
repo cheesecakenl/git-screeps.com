@@ -37,7 +37,7 @@ var roleBuilder = {
             }
         }
         if (creep.memory.gettingEnergy) {
-            var targets = utilStructure.findStructuresWithEnergy(creep);
+            var targets = utilStructure.findContainersWithEnergy(creep);
             if (targets.length > 3) {
                 if (creep.withdraw(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0]);
