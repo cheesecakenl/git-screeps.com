@@ -36,13 +36,8 @@ var roleFixer = {
             }
         }
         if (creep.memory.gettingEnergy) {
-            var containers = utilStructure.findContainersWithEnergy(creep);
-            if (containers.length > 0) {
-                if (creep.withdraw(containers[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(containers[0]);
-                }
-            } else {
-                var sources = utilStructure.findEnergySources(creep);
+            var sources = utilStructure.findEnergySources(creep);
+            if (sources.length > 0) {
                 if (creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(sources[1]);
                 }

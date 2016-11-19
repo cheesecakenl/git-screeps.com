@@ -12,10 +12,10 @@ var utilSpawner = {
         var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
 
         var minHarvesters = 3;
-        var minMovers = 2;
-        var minBuilders = 0;
-        var minFixers = 1;
-        var minAttackers = 1;
+        var minMovers = 1;
+        var minBuilders = 2;
+        var minFixers = 0;
+        var minAttackers = 0;
         var minUpgraders = 3;
         var minClaimers = 0;
 
